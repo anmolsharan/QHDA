@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tumor Analysis Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-dark text-light text-center">
+    <div class="container mt-5">
+        <h2 class="text-warning">Brain Tumor Prediction Result</h2>
+        <hr class="border border-warning">
+        <div class="row mt-4">
+            
+            <!-- Uploaded Image -->
+            <div class="col-md-4">
+                <h4 class="text-info">Uploaded MRI Scan</h4>
+                <img src="{{ image_path }}" alt="Uploaded Image" class="img-fluid rounded shadow" style="max-width: 100%;">
+            </div>
+ 
+            <!--Grad-CAM Heatmap-->
+            <div class="col-md-4">
+                <h4 class="text-danger">Grad-CAM Heatmap</h4>
+                {% if heatmap_path %}
+                    <img src="{{ heatmap_path }}" alt="Grad-CAM Heatmap" class="img-fluid rounded shadow" style="max-width: 100%;">
+                {% else %}
+                    <p class="text-warning">No heatmap available.</p>
+                {% endif %}
+            </div>  
+
+            <!-- Prediction GIF -->
+            <div class="col-md-4">
+                <h3>Grad-CAM Transition GIF</h3>
+                <img src="{{ gif_path }}" alt="Grad-CAM GIF" style="width: 256px;">  </div>
+        </div>
+
+        <!-- Prediction Results -->
+        <div class="mt-4 p-3 bg-secondary rounded">
+            <h3 class="text-light">Prediction: <span class="text-warning">{{ prediction }}</span></h3>
+            <h4 class="text-light">Confidence: <span class="text-success">{{ confidence|round(2) }}%</span></h4>
+        </div>
+
+        <br>
+        <a href="/" class="btn btn-primary mt-3">Upload Another Image</a>
+    </div>
+</body>
+</html>   
+
+
+
+
+
+
+
+
+  
+
+
