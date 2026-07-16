@@ -2,25 +2,11 @@ FROM python:3.11
 
 WORKDIR /app
 
-# Copy all project files
-COPY . /app
+# Copy project files
+COPY . .
 
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-
-# ---------- DEBUG ----------
-RUN echo "===== APP DIRECTORY ====="
-RUN ls -lah /app
-
-RUN echo "===== MODEL FILE ====="
-RUN ls -lh /app/grad_best_model.h5
-
-RUN echo "===== FILE TYPE ====="
-RUN file /app/grad_best_model.h5 || true
-
-RUN echo "===== FIRST 10 LINES ====="
-RUN head -10 /app/grad_best_model.h5 || true
-# ---------------------------
 
 EXPOSE 8080
 

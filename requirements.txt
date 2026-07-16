@@ -5,3 +5,4 @@ opencv-python-headless
 pillow
 imageio
 gunicorn
+google-cloud-storage

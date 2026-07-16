@@ -25,8 +25,26 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 
 # -------------------- Load Model --------------------
 
-MODEL_PATH = os.path.join(BASE_DIR, "grad_best_model.h5")
+from google.cloud import storage
+
+BUCKET_NAME = "qhda-models"
+MODEL_FILE = "grad_best_model.h5"
+MODEL_PATH = os.path.join(BASE_DIR, MODEL_FILE)
+
+if not os.path.exists(MODEL_PATH):
+    print("Downloading model from Cloud Storage...")
+
+    client = storage.Client()
+    bucket = client.bucket(BUCKET_NAME)
+    blob = bucket.blob(MODEL_FILE)
+
+    blob.download_to_filename(MODEL_PATH)
+
+    print("Download complete!")
+
+print("Loading TensorFlow model...")
 model = tf.keras.models.load_model(MODEL_PATH)
+print("Model loaded successfully.")
 
 class_names = ['glioma', 'meningioma', 'notumor', 'pituitary']
 
