@@ -34,13 +34,18 @@ MODEL_PATH = os.path.join(BASE_DIR, MODEL_FILE)
 if not os.path.exists(MODEL_PATH):
     print("Downloading model from Cloud Storage...")
 
-    client = storage.Client()
-    bucket = client.bucket(BUCKET_NAME)
-    blob = bucket.blob(MODEL_FILE)
+    try:
+        client = storage.Client()
+        bucket = client.bucket(BUCKET_NAME)
+        blob = bucket.blob(MODEL_FILE)
 
-    blob.download_to_filename(MODEL_PATH)
+        blob.download_to_filename(MODEL_PATH)
 
-    print("Download complete!")
+        print("Download complete!")
+
+    except Exception as e:
+        print("Download failed:", e)
+        raise
 
 print("Loading TensorFlow model...")
 model = tf.keras.models.load_model(MODEL_PATH)
